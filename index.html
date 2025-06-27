@@ -1,164 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AVB²: All-Vehicle Black Box</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background: #f9f9f9;
-      color: #222;
-      margin: 0;
-      padding: 0;
-    }
-    header, section {
-      padding: 2rem;
-      max-width: 800px;
-      margin: auto;
-    }
-    header {
-      background: #333;
-      color: white;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.5rem;
-    }
-    h2 {
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 0.5rem;
-      margin-top: 2rem;
-    }
-    .highlight {
-      color: #0a84ff;
-    }
-    .visual {
-      text-align: center;
-      padding: 1rem;
-      margin: 1rem 0;
-      color: #888;
-      font-style: italic;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    td, th {
-      border: 1px solid #ccc;
-      padding: 0.5rem;
-    }
-    .cta {
-      background: #0a84ff;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.25rem;
-      margin: 2rem 0;
-    }
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-      padding: 2rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVB²: All-Vehicle Black Box</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #1a3c6d, #2e5aa8);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+        }
+        nav {
+            background: #2e5aa8;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav ul li {
+            margin: 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+        section {
+            padding: 25px;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #1a3c6d;
+            border-bottom: 3px solid #2e5aa8;
+            padding-bottom: 10px;
+            font-size: 1.8em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #2e5aa8;
+            color: white;
+        }
+        .svg-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .cta {
+            text-align: center;
+            padding: 30px;
+            background: #2e5aa8;
+            color: white;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .cta a {
+            color: #ffd700;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #1a3c6d;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+            section {
+                padding: 15px;
+            }
+        }
+    </style>
+    <script>
+        // Smooth scroll for TOC
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(anchor.getAttribute('href'));
+                    target.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
 </head>
 <body>
-  <header>
-    <h1>AVB²</h1>
-    <p class="highlight">Revolutionary Telemetry for Land, Sea, and Air Adventures</p>
-  </header>
-
-  <section>
-    <h2>Introduction</h2>
-    <p>The <strong>AVB² (All-Vehicle Black Box)</strong> is a compact, rugged, subscription-free telemetry device for adventure vehicles: ATVs, boats, snowmobiles, gliders, and future flying cars. It records ride logs and crash data—accessible via Wi-Fi or Bluetooth—with no cellular dependency. AVB² is the data logger and crash communicator; all visualizations, alerts, and enhanced features are delivered through the companion app.</p>
-    <div class="visual">[Visual Placeholder: AVB² on vehicle mount - real graphic needed]</div>
-  </section>
-
-  <section>
-    <h2>The Challenge</h2>
-    <ul>
-      <li>No OBD-II ports in recreational or future flight vehicles</li>
-      <li>Current solutions depend on expensive subscriptions</li>
-      <li>Live signals fail in remote areas</li>
-      <li>Lack of standardized crash data access</li>
-    </ul>
-    <div class="visual">[Visual Placeholder: Table or chart of missing telemetry by vehicle type]</div>
-  </section>
-
-  <section>
-    <h2>The AVB² Solution</h2>
-    <ul>
-      <li><strong>Universal Mount</strong> – Works with land, sea, and air platforms</li>
-      <li><strong>Rugged Build</strong> – IP68 sealed, -40°C to 85°C range, ~100g crash resistance</li>
-      <li><strong>Smart Logging</strong> – 10Hz GPS/IMU + crash buffer + event triggers</li>
-      <li><strong>Private + Flexible</strong> – Wi-Fi syncing, Bluetooth crash access, optional cloud</li>
-      <li><strong>App-Driven Features</strong> – Gamified air time, tilt logs, route visualization (via mobile app)</li>
-      <li><strong>Affordable</strong> – No recurring fees, robust firmware</li>
-    </ul>
-    <div class="visual">[Visual Placeholder: Crash graph with Bluetooth connection]</div>
-  </section>
-
-  <section>
-    <h2>Technical Specifications</h2>
-    <table>
-      <tr><th>Feature</th><th>Details</th></tr>
-      <tr><td>Size</td><td>~40-50mm (golf ball-sized)</td></tr>
-      <tr><td>Durability</td><td>IP68, crash-resistant, -40°C to 85°C</td></tr>
-      <tr><td>Sensors</td><td>GPS (u-blox NEO-8M), 9-axis IMU (BNO055)</td></tr>
-      <tr><td>Storage</td><td>16MB flash (~100h telemetry, crash buffer)</td></tr>
-      <tr><td>Connectivity</td><td>ESP32-S3 (Wi-Fi), Bluetooth LE (crash read)</td></tr>
-      <tr><td>Battery</td><td>500–1000mAh LiPo, wireless charging</td></tr>
-      <tr><td>Mounting</td><td>Magnetic, adhesive, or bracket</td></tr>
-      <tr><td>Crash Detection</td><td>20m/s² threshold triggers Bluetooth beacon</td></tr>
-    </table>
-    <div class="visual">[Visual Placeholder: Exploded view of AVB² internals]</div>
-  </section>
-
-  <section>
-    <h2>Market Opportunity</h2>
-    <p>Global black box and connected adventure markets are booming:</p>
-    <ul>
-      <li><strong>Off-Road Vehicles</strong>: $21.9B (2024), 7.9% CAGR</li>
-      <li><strong>Boating</strong>: $29B (2022), 5.4% CAGR</li>
-      <li><strong>Flying Cars/eVTOLs</strong>: $8.2B by 2030</li>
-    </ul>
-    <p>Target customers: Parents, rental fleets, insurers, recreational pilots.</p>
-    <div class="visual">[Visual Placeholder: Market growth bar chart]</div>
-  </section>
-
-  <section>
-    <h2>Cost & ROI</h2>
-    <p>Estimated pilot costs (1,000 units):</p>
-    <ul>
-      <li>Manufacturing: $40K–70K</li>
-      <li>Firmware & App: $60K–120K</li>
-      <li>Certifications: $35K–55K</li>
-      <li>Marketing & Distribution: $35K–80K</li>
-    </ul>
-    <p><strong>Retail:</strong> $150–300 | <strong>Break-even:</strong> ~1,600 units | <strong>Year 2 Goal:</strong> 20,000 units = $3M profit</p>
-    <div class="visual">[Visual Placeholder: ROI bar chart from Year 1 to Year 3]</div>
-  </section>
-
-  <section>
-    <h2>Development & Marketing</h2>
-    <p><strong>Hardware:</strong> ESP32-S3 + GPS + IMU, sealed polycarbonate shell</p>
-    <p><strong>App:</strong> iOS/Android companion app for log downloads, analytics, crash access, and optional gamified metrics</p>
-    <p><strong>Testing:</strong> MIL-STD-810G, IP68, real-world rides</p>
-    <p><strong>Marketing:</strong> SEMA, Boat Shows, AirVenture, digital ads, partner demos</p>
-    <div class="visual">[Visual Placeholder: Timeline of prototype, testing, launch]</div>
-  </section>
-
-  <section class="cta">
-    <p><strong>Join the AVB² Revolution</strong></p>
-    <p>Be a launch partner, fleet tester, or early adopter.</p>
-    <p>Email: <a href="mailto:cbg.robert@gmail.com">cbg.robert@gmail.com</a></p>
-    <p>[Pre-Order] [Kickstarter Preview]</p>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 AVB². All rights reserved.</p>
-  </footer>
+    <header>
+        <h1>AVB²: All-Vehicle Black Box</h1>
+        <p>Revolutionary Telemetry for Land, Sea, and Air Adventures</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#problem">The Challenge</a></li>
+            <li><a href="#solution">AVB² Solution</a></li>
+            <li><a href="#tech-specs">Technical Specs</a></li>
+            <li><a href="#market">Market Opportunity</a></li>
+            <li><a href="#cost-roi">Cost & ROI</a></li>
+            <li><a href="#development">Development & Marketing</a></li>
+            <li><a href="#call-to-action">Join Us</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>The AVB² (All-Vehicle Black Box) is a compact, rugged, subscription-free telemetry device for adventure vehicles: ATVs, boats, snowmobiles, gliders, and future flying cars. It records ride logs and crash data—accessible via Wi-Fi or Bluetooth—with no cellular dependency. AVB² is the data logger and crash communicator; all visualizations, alerts, and enhanced features are delivered through the companion app.</p>
+            <div class="svg-container">
+                <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="100" y="50" width="100" height="100" rx="20" fill="#2e5aa8"/>
+                    <circle cx="150" cy="100" r="40" fill="#1a3c6d"/>
+                    <text x="150" y="105" text-anchor="middle" fill="white" font-size="20">AVB²</text>
+                    <rect x="130" y="80" width="10" height="10" fill="#ffd700"/>
+                    <rect x="160" y="80" width="10" height="10" fill="#ffd700"/>
+                    <path d="M120 150 L180 150 L150 180 Z" fill="#333"/>
+                    <path d="M50 170 L250 170" stroke="#333" stroke-width="2"/>
+                    <text x="150" y="195" text-anchor="middle" fill="#333" font-size="12">Mounted on ATV</text>
+                </svg>
+                <p><strong>SVG Visual:</strong> AVB² device (rounded square with LED indicators) mounted on an ATV, with a ground line suggesting rugged terrain.</p>
+            </div>
+        </section>
+        <section id="problem">
+            <h2>The Challenge</h2>
+            <p>Recreational and future flight vehicles face telemetry gaps:</p>
+            <ul>
+                <li>No OBD-II ports in ATVs, snowmobiles, boats, gliders, or flying cars.</li>
+                <li>Current solutions depend on expensive subscriptions.</li>
+                <li>Live signals fail in remote areas.</li>
+                <li>Lack of standardized crash data access.</li>
+            </ul>
+            <div class="svg-container">
+                <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="260" height="160" fill="#f9f9f9" stroke="#333" stroke-width="2"/>
+                    <text x="75" y="50" text-anchor="middle" fill="#333" font-size="14">ATV</text>
+                    <text x="150" y="50" text-anchor="middle" fill="#333" font-size="14">Boat</text>
+                    <text x="225" y="50" text-anchor="middle" fill="#333" font-size="14">eVTOL</text>
+                    <path d="M75 60 L75 140" stroke="red" stroke-width="4"/>
+                    <path d="M65 60 L85 60 M65 140 L85 140" stroke="red" stroke-width="4"/>
+                    <path d="M150 60 L150 140" stroke="red" stroke-width="4"/>
+                    <path d="M140 60 L160 60 M140 140 L160 140" stroke="red" stroke-width="4"/>
+                    <path d="M225 60 L225 140" stroke="red" stroke-width="4"/>
+                    <path d="M215 60 L235 60 M215 140 L235 140" stroke="red" stroke-width="4"/>
+                    <text x="150" y="30" text-anchor="middle" fill="#333" font-size="16">Telemetry Gaps</text>
+                </svg>
+                <p><strong>SVG Visual:</strong> Table showing red "X" marks for telemetry gaps across ATV, boat, and eVTOL.</p>
+            </div>
+        </section>
+        <section id="solution">
+            <h2>The AVB² Solution</h2>
+            <p>AVB² redefines adventure vehicle telemetry:</p>
+            <ul>
+                <li><strong>Universal Mount</strong>: Works with land, sea, and air platforms.</li>
+                <li><strong>Rugged Build</strong>: IP68 sealed, -40°C to 85°C, ~100g crash resistance.</li>
+                <li><strong>Smart Logging</strong>: 10Hz GPS/IMU + crash buffer + event triggers.</li>
+                <li><strong>Private + Flexible</strong>: Wi-Fi syncing, Bluetooth crash access, optional cloud.</li>
+                <li><strong>App-Driven Features</strong>: Gamified air time, tilt logs, route visualization (via mobile app).</li>
+                <li><strong>Affordable</strong>: No recurring fees, robust firmware.</li>
+            </ul>
+            <div class="svg-container">
+                <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="260" height="160" fill="#f9f9f9" stroke="#333" stroke-width="2"/>
+                    <path d="M50 150 Q150 50 250 150" fill="none" stroke="#2e5aa8" stroke-width="4"/>
+                    <circle cx="150" cy="50" r="10" fill="#ffd700"/>
+                    <path d="M150 50 L180 80 M150 50 L120 80" stroke="#1a3c6d" stroke-width="3"/>
+                    <rect x="230" y="100" width="40" height="20" fill="#333"/>
+                    <text x="250" y="115" text-anchor="middle" fill="white" font-size="10">Tablet</text>
+                    <text x="150" y="170" text-anchor="middle" fill="#333" font-size="12">Bluetooth Crash Data</text>
+                </svg>
+                <p><strong>SVG Visual:</strong> Crash graph (acceleration spike) with Bluetooth signal to a responder’s tablet.</p>
+            </div>
+        </section>
+        <section id="tech-specs">
+            <h2>Technical Specifications</h2>
+            <table>
+                <tr><th>Feature</th><th>Details</th></tr>
+                <tr><td>Size</td><td>~40-50mm (golf ball-sized)</td></tr>
+                <tr><td>Durability</td><td>IP68, crash-resistant, -40°C to 85°C</td></tr>
+                <tr><td>Sensors</td><td>GPS (u-blox NEO-8M), 9-axis IMU (BNO055)</td></tr>
+                <tr><td>Storage</td><td>16MB flash (~100h telemetry, crash buffer)</td></tr>
+                <tr><td>Connectivity</td><td>ESP32-S3 (Wi-Fi), Bluetooth LE (crash read)</td></tr>
+                <tr><td>Battery</td><td>500–1000mAh LiPo, wireless charging</td></tr>
+                <tr><td>Mounting</td><td>Magnetic, adhesive, or bracket</td></tr>
+                <tr><td>Crash Detection</td><td>20m/s² threshold triggers Bluetooth beacon</td></tr>
+            </table>
+            <div class="svg-container">
+                <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="80" y="40" width="140" height="120" rx="15" fill="#2e5aa8"/>
+                    <circle cx="150" cy="100" r="30" fill="#1a3c6d"/>
+                    <rect x="120" y="80" width="10" height="10" fill="#ffd700"/>
+                    <rect x="170" y="80" width="10" height="10" fill="#ffd700"/>
+                    <path d="M100 160 L200 160 L150 190 Z" fill="#333"/>
+                    <circle cx="120" cy="120" r="5" fill="#666"/>
+                    <rect x="170" y="110" width="10" height="10" fill="#666"/>
+                    <text x="150" y="100" text-anchor="middle" fill="white" font-size="14">AVB²</text>
+                    <text x="150" y="180" text-anchor="middle" fill="#333" font-size="10">Exploded View</text>
+                </svg>
+                <p><strong>SVG Visual:</strong> Exploded view of AVB², showing GPS, IMU, battery, and rugged enclosure.</p>
+            </div>
+        </section>
+        <section id="market">
+            <h2>Market Opportunity</h2>
+            <p>Global black box and connected adventure markets are booming:</p>
+            <ul>
+                <li><strong>Off-Road Vehicles</strong>: $21.9B (2024), 7.9% CAGR.</li>
+                <li><strong>Boating</strong>: $29B (2022), 5.4% CAGR.</li>
+                <li><strong>Flying Cars/eVTOLs</strong>: $8.2B by 2030.</li>
+                <li><strong>Target Customers</strong>: Parents, rental fleets, insurers, recreational pilots.</li>
+            </ul>
+            <div class="svg-container">
+                <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="260" height="160" fill="#f9f9f9" stroke="#333" stroke-width="2"/>
+                    <rect x="50" y="120" width="50" height="60" fill="#2e5aa8"/>
+                    <rect x="110" y="80" width="50" height="100" fill="#2e5aa8"/>
+                    <rect x="170" y="40" width="50" height="140" fill="#2e5aa8"/>
+                    <text x="75" y="190" text-anchor="middle" fill="#333" font-size="12">2024</text>
+                    <text x="135" y="190" text-anchor="middle" fill="#333" font-size="12">2027</text>
+                    <text x="195" y="190" text-anchor="middle" fill="#333" font-size="12">2030</text>
+                    <text x="150" y="30" text-anchor="middle" fill="#333" font-size="16">Market Growth</text>
+                </svg>
+                <p><strong>SVG Visual:</strong> Bar chart showing growth of off-road, boating, and eVTOL markets to 2030.</p>
+            </div>
+        </section>
+        <section id="cost-roi">
+            <h2>Cost & ROI</h2>
+            <p>Estimated pilot costs (1,000 units):</p>
+            <table>
+                <tr><th>Item</th><th>Cost</th></tr>
+                <tr><td>Manufacturing</td><td>$40K–70K</td></tr>
+                <tr><td>Firmware & App</td><td>$60K–120K</td></tr>
+                <tr><td>Certifications</td><td>$35K–55K</td></tr>
+                <tr><td>Marketing & Distribution</td><td>$35K–80K</td></tr>
+                <tr><td>Total</td><td>$170K–310K</td></tr>
+            </table>
+            <p>Retail: $150–300 | Break-even: ~1,600 units | Year 2 Goal: 20,000 units = $3M profit</p>
+            <div class="svg-container">
+                <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="260" height="160" fill="#f9f9f9" stroke="#333" stroke-width="2"/>
+                    <rect x="50" y="120" width="50" height="60" fill="#2e5aa8"/>
+                    <rect x="110" y="80" width="50" height="100" fill="#2e5aa8"/>
+                    <rect x="170" y="40" width="50" height="140" fill="#ffd700"/>
+                    <text x="75" y="190" text-anchor="middle" fill="#333" font-size="12">Year 1</text>
+                    <text x="135" y="190" text-anchor="middle" fill="#333" font-size="12">Year 2</text>
+                    <text x="195" y="190" text-anchor="middle" fill="#333" font-size="12">Year 3</text>
+                    <text x="150" y="30" text-anchor="middle" fill="#333" font-size="16">Profit Projection</text>
+                </svg>
+                <p><strong>SVG Visual:</strong> Bar chart showing profit growth, with Year 3 highlighted in gold.</p>
+            </div>
+        </section>
+        <section id="development">
+            <h2>Development & Marketing</h2>
+            <p><strong>Hardware</strong>: ESP32-S3 + GPS + IMU, sealed polycarbonate shell.</p>
+            <p><strong>App</strong>: iOS/Android companion app for log downloads, analytics, crash access, and optional gamified metrics.</p>
+            <p><strong>Testing</strong>: MIL-STD-810G, IP68, real-world rides.</p>
+            <p><strong>Marketing</strong>: SEMA, Boat Shows, AirVenture, digital ads, partner demos.</p>
+            <div class="svg-container">
+                <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="260" height="160" fill="#f9f9f9" stroke="#333" stroke-width="2"/>
+                    <circle cx="75" cy="100" r="20" fill="#2e5aa8"/>
+                    <circle cx="150" cy="100" r="20" fill="#2e5aa8"/>
+                    <circle cx="225" cy="100" r="20" fill="#ffd700"/>
+                    <path d="M75 100 L150 100 L225 100" stroke="#333" stroke-width="3"/>
+                    <text x="75" y="130" text-anchor="middle" fill="#333" font-size="12">Prototype</text>
+                    <text x="150" y="130" text-anchor="middle" fill="#333" font-size="12">Testing</text>
+                    <text x="225" y="130" text-anchor="middle" fill="#333" font-size="12">Launch</text>
+                    <text x="150" y="30" text-anchor="middle" fill="#333" font-size="16">Timeline</text>
+                </svg>
+                <p><strong>SVG Visual:</strong> Timeline of development milestones, with launch highlighted in gold.</p>
+            </div>
+        </section>
+        <section id="call-to-action" class="cta">
+            <h2>Join the AVB² Revolution</h2>
+            <p>Be a launch partner, fleet tester, or early adopter.</p>
+            <p>Email: <a href="mailto:cbg.robert@gmail.com">cbg.robert@gmail.com</a></p>
+            <p><a href="https://avb2.com/preorder">Pre-Order</a> | <a href="https://kickstarter.com/projects/avb2">Kickstarter Preview</a></p>
+            <div class="svg-container">
+                <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="260" height="160" fill="#f9f9f9" FILLER="1" stroke="#333" stroke-width="2"/>
+                    <rect x="100" y="60" width="100" height="50" rx="10" fill="#2e5aa8"/>
+                    <text x="150" y="90" text-anchor="middle" fill="white" font-size="16">Pre-Order Now</text>
+                    <text x="150" y="150" text-anchor="middle" fill="#333" font-size="12">Kickstarter Campaign</text>
+                </svg>
+                <p><strong>SVG Visual:</strong> Mockup of Kickstarter pre-order button for AVB².</p>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>© 2025 AVB². All rights reserved.</p>
+    </footer>
 </body>
 </html>
